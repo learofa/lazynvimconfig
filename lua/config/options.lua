@@ -51,4 +51,4 @@ vim.o.background = "dark"
 -- vim.o.termguicolors = true
 -- vim.opt.termguicolors = true
 
-vim.o.fileformats = "unix, dos"
+vim.o.fileformats = "unix,dos"
