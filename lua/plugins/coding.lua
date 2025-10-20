@@ -72,7 +72,7 @@ return {
     },
     {
         'nvim-treesitter/nvim-treesitter',
-        lazy = false,
+        -- lazy = false,
         -- branch = 'main',
         build = ':TSUpdate',
         config = function()
