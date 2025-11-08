@@ -2,6 +2,7 @@
 vim.g.encoding = "utf-8"
 -- 设置终端编码格式为 utf-8
 -- vim.o.termencoding = "utf-8"
+vim.o.fileencodings = "utf-8,ucs-bom,gb18030,gbk,gb2312,cp936"
 -- 开启语法高亮
 vim.o.syntax = "enable"
 -- 显示相对行号

@@ -36,14 +36,18 @@ return {
                     ["<CR>"] = cmp.mapping.confirm({ select = true }), -- 确认选择
                     -- 切换补全项
                     ["<Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
+                        if luasnip.jumpable(1) then
+                            luasnip.jump(1)
+                        elseif cmp.visible() then
                             cmp.select_next_item()
                         else
                             fallback()
                         end
                     end, { "i", "s" }),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
+                        if luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        elseif cmp.visible() then
                             cmp.select_prev_item()
                         else
                             fallback()
