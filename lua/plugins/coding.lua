@@ -36,8 +36,8 @@ return {
                     ["<CR>"] = cmp.mapping.confirm({ select = true }), -- 确认选择
                     -- 切换补全项
                     ["<Tab>"] = cmp.mapping(function(fallback)
-                        if luasnip.jumpable(1) then
-                            luasnip.jump(1)
+                        if luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
                         elseif cmp.visible() then
                             cmp.select_next_item()
                         else
@@ -51,6 +51,18 @@ return {
                             cmp.select_prev_item()
                         else
                             fallback()
+                        end
+                    end, { "i", "s" }),
+                    -- 额外的跳转按键（可选）
+                    ["<C-j>"] = cmp.mapping(function()
+                        if luasnip.jumpable(1) then
+                            luasnip.jump(1)
+                        end
+                    end, { "i", "s" }),
+
+                    ["<C-k>"] = cmp.mapping(function()
+                        if luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
                         end
                     end, { "i", "s" }),
                 }),
@@ -76,20 +88,27 @@ return {
     },
     {
         'nvim-treesitter/nvim-treesitter',
-        -- lazy = false,
-        -- branch = 'main',
+        lazy = false,
+        branch = 'main',
         build = ':TSUpdate',
         config = function()
-            require'nvim-treesitter.configs'.setup {
-                ensure_installed = { "nu" },
+            require('nvim-treesitter').setup({
+                -- 指定需要自动安装的语法解析器
+                ensure_installed = { "c", "lua", "python", "nu", "fish" },
 
+                -- 打开文件时，自动安装缺少的语法解析器
+                auto_install = true,
+
+                -- 启用语法高亮
                 highlight = {
                     enable = true,
                 },
+
+                -- 启用基于语法树的智能缩进（部分语言可能需关闭）
                 indent = {
-                    enable = true
-                }
-            }
+                    enable = true,
+                },
+            })
         end
-    }
+    },
 }
